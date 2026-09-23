@@ -6,6 +6,12 @@
 <title>IRO — Agence de création de contenus | Annecy</title>
 <meta name="description" content="IRO est une agence de création de contenus spécialisée dans les réseaux sociaux. Une qualité de production premium, la réactivité d'un créateur, l'accompagnement d'un partenaire.">
 <link rel="icon" href="assets/logo-iro.png">
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {});
+  }
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -633,7 +639,6 @@
   </div>
 </footer>
 
-<script src="assets/projects.js"></script>
 <script>
 // Header background on scroll
 const header = document.getElementById('siteHeader');
@@ -713,13 +718,14 @@ overlayClose.addEventListener('click', closeOverlay);
 navOverlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeOverlay));
 window.matchMedia('(min-width:901px)').addEventListener('change', (e) => { if (e.matches) closeOverlay(); });
 
-// Portfolio grid — rendered from assets/projects.js
+// Portfolio grid — rendered from assets/projects.json (editable via /admin)
 const portfolioGrid = document.getElementById('portfolioGrid');
 const lightbox = document.getElementById('lightbox');
 const lightboxInner = document.getElementById('lightboxInner');
+let PROJECTS = [];
 
 function renderPortfolio(){
-  if (!portfolioGrid || typeof PROJECTS === 'undefined') return;
+  if (!portfolioGrid) return;
   portfolioGrid.innerHTML = PROJECTS.map((p, i) => `
     <div class="port-card" data-index="${i}">
       <div class="port-media">
@@ -758,7 +764,11 @@ function closeLightbox(){
   document.body.style.overflow = '';
 }
 lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-renderPortfolio();
+
+fetch('assets/projects.json?v=' + Date.now())
+  .then(r => r.json())
+  .then(data => { PROJECTS = data.projects || []; renderPortfolio(); })
+  .catch(() => {});
 
 // FAQ accordion
 document.querySelectorAll('.faq-item').forEach(item => {

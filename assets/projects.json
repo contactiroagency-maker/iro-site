@@ -1,0 +1,25 @@
+{
+  "projects": [
+    {
+      "title": "Premier projet à venir",
+      "tags": ["Bientôt"],
+      "image": "",
+      "description": "Notre premier projet client sera présenté ici très prochainement.",
+      "link": ""
+    },
+    {
+      "title": "Deuxième projet à venir",
+      "tags": ["Bientôt"],
+      "image": "",
+      "description": "",
+      "link": ""
+    },
+    {
+      "title": "Troisième projet à venir",
+      "tags": ["Bientôt"],
+      "image": "",
+      "description": "",
+      "link": ""
+    }
+  ]
+}

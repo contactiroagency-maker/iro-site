@@ -1,0 +1,27 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/portfolio"
+public_folder: "/assets/portfolio"
+
+locale: "fr"
+
+collections:
+  - name: "portfolio"
+    label: "Portfolio"
+    files:
+      - name: "projects"
+        label: "Projets"
+        file: "assets/projects.json"
+        fields:
+          - name: "projects"
+            label: "Projets"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { name: "title", label: "Nom du client / projet", widget: "string" }
+              - { name: "tags", label: "Tags", widget: "list", default: [] }
+              - { name: "image", label: "Photo", widget: "image", required: false, choose_url: false }
+              - { name: "description", label: "Description", widget: "text", required: false }
+              - { name: "link", label: "Lien (Instagram, TikTok...)", widget: "string", required: false }
